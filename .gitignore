@@ -1,0 +1,7 @@
+# misc
+/node_modules
+package-lock.json
+.DS_Store
+.env
+npm-debug.log*
+./package-lock.json
