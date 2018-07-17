@@ -8,7 +8,7 @@ const mongoose = require('mongoose')
 
 // Database configuration for mongoose
 // db: inmotion
-mongoose.connect('mongodb://jrs341:' + dbPass + '@ds123181.mlab.com:23181/inmotion')
+mongoose.connect('mongodb://jrs341:HHCwc3et0@ds123181.mlab.com:23181/inmotion')
 // Hook mongoose connection to db
 const db = mongoose.connection
 
@@ -35,5 +35,6 @@ const server = new ApolloServer({
 // This `listen` method launches a web-server.  Existing apps
 // can utilize middleware options, which we'll discuss later.
 server.listen().then(({ url }) => {
+	console.log('**** url ****', url)
   console.log('\x1b[32m%s\x1b[0m',`🚀  Server ready at ${url}`)
 })
