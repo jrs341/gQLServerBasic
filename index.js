@@ -38,6 +38,7 @@ const server = new ApolloServer({
 // server.listen().then(({ url }) => {
 	server.listen().then(({url}) => {
 	console.log('**** url ****', url)
+	console.log('**** port ****', process.env.PORT)
 	// console.log('\x1b[32m%s\x1b[0m',`🚀  Server ready at `)
   console.log('\x1b[32m%s\x1b[0m',`🚀  Server ready at ${url}`)
 })
