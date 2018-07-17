@@ -35,15 +35,15 @@ const server = new ApolloServer({
   // apiKey: 'service:jrs341-1669:Z68Ajb4D0_enyvDJa6nsaQ',
   // engine: true
 })
-const myUrl = 'a url'
+
 // This `listen` method launches a web-server.  Existing apps
 // can utilize middleware options, which we'll discuss later.
 // server.listen().then(({ url }) => {
-	server.listen({port: PORT}).then(({url, subscriptionsPath, server}) => {
-	console.log('**** url ****', url)
-	console.log('**** subscriptionsPath ****', subscriptionsPath)
+	server.listen(PORT).then(() => {
+	// console.log('**** url ****', url)
+	// console.log('**** subscriptionsPath ****', subscriptionsPath)
 	// console.log('***** server *****', server)
 	console.log('**** port ****', process.env.PORT)
 	// console.log('\x1b[32m%s\x1b[0m',`🚀  Server ready at `)
-  console.log('\x1b[32m%s\x1b[0m',`🚀  Server ready at ${url}`)
+  console.log('\x1b[32m%s\x1b[0m',`🚀  Server ready at ${PORT}`)
 })
