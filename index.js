@@ -7,7 +7,7 @@ const mongoose = require('mongoose')
 const PORT = process.env.PORT || 4000
 const HOST = process.env.PORT == 'undefined'
 	? 'localhost'
-	: 'graphql-server-basic.herokuapp.com/'
+	: 'https://graphql-server-basic.herokuapp.com/'
 
 // Database configuration for mongoose
 // db: inmotion
