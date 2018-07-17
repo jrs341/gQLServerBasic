@@ -4,7 +4,7 @@ const resolvers = require('./resolvers')
 const mongoose = require('mongoose')
 
 // Express Port/App Declaration
-var PORT = process.env.PORT || 3000
+// var PORT = process.env.PORT || 3000
 
 // Database configuration for mongoose
 // db: inmotion
