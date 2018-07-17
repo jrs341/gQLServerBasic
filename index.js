@@ -28,13 +28,16 @@ db.once('open', () => {
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: {},
-  engine: true
+  context: {}
+  // apiKey: 'service:jrs341-1669:Z68Ajb4D0_enyvDJa6nsaQ',
+  // engine: true
 })
 
 // This `listen` method launches a web-server.  Existing apps
 // can utilize middleware options, which we'll discuss later.
-server.listen().then(({ url }) => {
-	console.log('**** url ****', url)
-  console.log('\x1b[32m%s\x1b[0m',`🚀  Server ready at ${url}`)
+// server.listen().then(({ url }) => {
+	server.listen().then(() => {
+	// console.log('**** url ****', url)
+	console.log('\x1b[32m%s\x1b[0m',`🚀  Server ready at `)
+  // console.log('\x1b[32m%s\x1b[0m',`🚀  Server ready at ${url}`)
 })
