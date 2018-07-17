@@ -39,7 +39,7 @@ const myUrl = 'a url'
 // This `listen` method launches a web-server.  Existing apps
 // can utilize middleware options, which we'll discuss later.
 // server.listen().then(({ url }) => {
-	server.listen({port: PORT, host: HOST }).then(({url, subscriptionsPath, server}) => {
+	server.listen({port: PORT}).then(({url, subscriptionsPath, server}) => {
 	console.log('**** url ****', url)
 	console.log('**** subscriptionsPath ****', subscriptionsPath)
 	// console.log('***** server *****', server)
