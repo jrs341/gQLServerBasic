@@ -8,7 +8,7 @@ const mongoose = require('mongoose')
 
 // Database configuration for mongoose
 // db: inmotion
-mongoose.connect('mongodb://jrs341:HHCwc3et0@ds123181.mlab.com:23181/inmotion')
+mongoose.connect('mongodb://jrs341:' + dbPass + '@ds123181.mlab.com:23181/inmotion')
 // Hook mongoose connection to db
 const db = mongoose.connection
 
@@ -28,7 +28,8 @@ db.once('open', () => {
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: {}
+  context: {},
+  engine: true
 })
 
 // This `listen` method launches a web-server.  Existing apps
