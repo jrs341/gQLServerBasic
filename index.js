@@ -5,9 +5,6 @@ const mongoose = require('mongoose')
 
 // Express Port/App Declaration
 const PORT = process.env.PORT || 4000
-const HOST = process.env.PORT == 'undefined'
-	? 'localhost'
-	: 'https://graphql-server-basic.herokuapp.com/'
 
 // Database configuration for mongoose
 // db: inmotion
@@ -36,10 +33,15 @@ const server = new ApolloServer({
   // engine: true
 })
 
+server.get('/', (req, res) => {
+	console.log('***** req *****', req)
+	console.log('***** res *****', res)
+})
+
 // This `listen` method launches a web-server.  Existing apps
 // can utilize middleware options, which we'll discuss later.
-// server.listen().then(({ url }) => {
-	server.listen(PORT).then(() => {
+// server.applyMiddleware()
+server.listen(PORT).then(() => {
 	// console.log('**** url ****', url)
 	// console.log('**** subscriptionsPath ****', subscriptionsPath)
 	// console.log('***** server *****', server)
