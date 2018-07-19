@@ -6,6 +6,7 @@ const { gql } = require('apollo-server')
 const typeDefs = gql`
 
   type Query {
+    user: User
     allMovies: [Movie]
     searchMovies(query: String): [Movie]
   }
@@ -29,6 +30,10 @@ const typeDefs = gql`
     deleteMovie(_id: String): Movie
   }
 
+  type User {
+    userId: String
+  }
+  
   type Movie {
     title: String
     genre: String

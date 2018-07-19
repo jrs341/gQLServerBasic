@@ -1,8 +1,23 @@
 const Movies = require('./models/movies')
+const Users = require('./models/users')
 
 const resolvers = {
   Query: {
+    user: () => {
+      const user = Users.find({}, (error, data) => {
+        if (error) {
+          console.log('*** user error ***', error)
+          return error
+        } else {
+          console.log('**** user data ***', data)
+          return data
+        }
+      })
+      return user
+    },
+
     allMovies: () => {
+      console.log('*** allMovies *****')
       const allMovies = Movies.find({}, (error, data) => {
         if (error) {
             return error
@@ -64,6 +79,12 @@ const resolvers = {
       return deletedMovie
     }
 },
+  
+  User: {
+    userId: (parent) => {
+      return parent.userId
+    }
+  },
 
   Movie: {
     title: (parent) => {

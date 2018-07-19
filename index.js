@@ -4,7 +4,7 @@ const resolvers = require('./resolvers')
 const mongoose = require('mongoose')
 
 // Express Port/App Declaration
-const PORT = process.env.PORT || 4000
+const PORT = process.env.PORT || 3010
 
 // Database configuration for mongoose
 // db: inmotion
@@ -28,9 +28,10 @@ db.once('open', () => {
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  cors: true,
   introspection: true,
   playground: true,
-  engine: true,
+  // engine: true,
   context: {}
 })
 
