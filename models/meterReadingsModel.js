@@ -7,6 +7,10 @@ var MeterReadingsSchema = new Schema({
     type: String,
     trim: true
   },
+  meterId: {
+    type: String,
+    trim: true
+  },
   readings: [{
     reading: {
     type: Number,
