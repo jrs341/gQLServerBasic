@@ -2,13 +2,15 @@ const { ApolloServer } = require('apollo-server')
 const typeDefs = require('./types')
 const resolvers = require('./resolvers')
 const mongoose = require('mongoose')
-
+const faker = require('faker')
+const Customer = require('./models/customerModel')
+const Employee = require('./models/employeeModel.js')
 // Express Port/App Declaration
 const PORT = process.env.PORT || 3010
 
 // Database configuration for mongoose
 // db: inmotion
-mongoose.connect('mongodb://jrs341:HHCwc3et0@ds123181.mlab.com:23181/inmotion')
+mongoose.connect('mongodb://jrs341:HHCwc3et0@ds137687.mlab.com:37687/demo')
 // Hook mongoose connection to db
 const db = mongoose.connection
 
@@ -31,7 +33,7 @@ const server = new ApolloServer({
   cors: true,
   introspection: true,
   playground: true,
-  // engine: true,
+  engine: true,
   context: {}
 })
 
@@ -41,3 +43,28 @@ const server = new ApolloServer({
 server.listen(PORT).then(() => {
   console.log('\x1b[32m%s\x1b[0m',`🚀  Server ready at ${PORT}`)
 })
+
+// for (var i = 0; i < 40; i++) {
+//   const body = {
+//     given_name:faker.fake('{{name.firstName}}'),
+//     family_name:faker.fake('{{name.lastName}}'),
+//     phone_number:faker.phone.phoneNumber(),
+//     email:faker.internet.email(),
+//     address_line_1:faker.address.streetName(),
+//     locality:faker.address.city(),
+//     administrative_district_level_1:faker.address.stateAbbr(),
+//     postal_code:faker.address.zipCode(),
+//     drivers_license_num:faker.random.alphaNumeric(),
+//     drivers_license_state:faker.address.stateAbbr()
+//   }
+//   console.log('**** body *****', body)
+//   const customer = new Customer(body)
+//   console.log('**** customer ****', customer)
+//   customer.save((error, doc) => {
+//     if (error) {
+//       console.log('**** error *****', error)
+//     } else {
+//       console.log('**** doc ****', doc)
+//     }
+//   })
+// }
