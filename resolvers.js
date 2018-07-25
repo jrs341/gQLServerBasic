@@ -6,10 +6,8 @@ const resolvers = {
     user: () => {
       const user = Users.find({}, (error, data) => {
         if (error) {
-          console.log('*** user error ***', error)
           return error
         } else {
-          console.log('**** user data ***', data)
           return data
         }
       })
@@ -17,7 +15,6 @@ const resolvers = {
     },
 
     allMovies: () => {
-      console.log('*** allMovies *****')
       const allMovies = Movies.find({}, (error, data) => {
         if (error) {
             return error
@@ -36,8 +33,54 @@ const resolvers = {
         } else {
           return data
         }
-    })
-    return searchResults
+      })
+      return searchResults
+    },
+
+    allCustomers: () => {
+      const customers = Customers.find({}, (error, data) => {
+        if (error) {
+          return error
+        } else {
+          return data
+        }
+      })
+      return customers
+    },
+
+    searchCustomer: (parent, query) => {
+      const searchResults = Customers.find({$text:
+        { $search: query.query}}, (error, data) => {
+          if (error) {
+            return error
+          } else {
+            return data
+          }
+        })
+      return searchResults
+    },
+
+    allMeters: () => {
+      const meters = Meters.find({}, (error, data) => {
+        if (error) {
+          return error
+        } else {
+          return data
+        }
+      })
+      return meters
+    },
+
+    searchMeters: (parent, query) => {
+      const searchResults = Meters.find({$text:
+        {$search: query.query}}, (error, data) => {
+          if (error) {
+            return error
+          } else {
+            return data
+          }
+        return searchResults
+      })
     }
 },
    Mutation: {
@@ -68,14 +111,11 @@ const resolvers = {
     deleteMovie: (parent, id) => {
       const deletedMovie = Movies.remove({_id: id}, (error, data) => {
         if (error) {
-          console.log('*** error ****', error)
           return error
         } else {
-          console.log('***** data *****', data)
           return data
         }
       })
-      console.log('**** deletedMovie *****', deletedMovie)
       return deletedMovie
     }
 },
@@ -104,6 +144,66 @@ const resolvers = {
     },
     _id: (parent) => {
       return parent._id
+    }
+  },
+
+  Customer: {
+    _id: (parent) => {
+      return parent._id
+    },
+    given_name: (parent) => {
+      return parent.given_name
+    },
+    family_name: (parent) => {
+      return parent.family_name
+    },
+    phone_number: (parent) => {
+      return parent.phone_number
+    },
+    email: (parent) => {
+      return parent.email
+    },
+    address_line_1: (parent) => {
+      return parent.address_line_1
+    },
+    locality: (parent) => {
+      return parent.locality
+    },
+    administrative_district_level_1: (parent) => {
+      return parent.administrative_district_level_1
+    },
+    postal_code: (parent) => {
+      return parent.postal_code
+    },
+    country: (parent) => {
+      return parent.country
+    },
+    drivers_license_num: (parent) => {
+      return parent.drivers_license_num
+    },
+    drivers_license_state: (parent) => {
+      return parent.drivers_license_state
+    }
+  },
+
+  Meter: {
+    _id: (parent) => {
+      return parent._id
+    },
+    meter: (parent) => {
+      return parent.meter
+    },
+    meterId: (parent) => {
+      return parent.meterId
+    },
+    readings: (parent) => {
+      return parent.readings
+    },
+    customer: (parent) => {
+      return parent.customer
+    },
+    amp: (parent) => {
+      return parent.amp
     }
   }
 }
