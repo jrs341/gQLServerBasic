@@ -66,9 +66,14 @@ const typeDefs = gql`
     _id: String
     meter: String
     meterId: String
-    readings: Object
+    readings: [Reading]
     customer: String
     amp: String
+  }
+
+  type Reading {
+    _id: String
+    reading: Int
   }
 `;
 

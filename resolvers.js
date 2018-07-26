@@ -1,3 +1,5 @@
+const Customer = require('./models/customerModel')
+const Meter = require('./models/meterReadingsModel')
 const Movies = require('./models/movies')
 const Users = require('./models/users')
 
@@ -38,7 +40,7 @@ const resolvers = {
     },
 
     allCustomers: () => {
-      const customers = Customers.find({}, (error, data) => {
+      const customers = Customer.find({}, (error, data) => {
         if (error) {
           return error
         } else {
@@ -49,7 +51,7 @@ const resolvers = {
     },
 
     searchCustomer: (parent, query) => {
-      const searchResults = Customers.find({$text:
+      const searchResults = Customer.find({$text:
         { $search: query.query}}, (error, data) => {
           if (error) {
             return error
@@ -61,7 +63,7 @@ const resolvers = {
     },
 
     allMeters: () => {
-      const meters = Meters.find({}, (error, data) => {
+      const meters = Meter.find({}, (error, data) => {
         if (error) {
           return error
         } else {
@@ -72,7 +74,7 @@ const resolvers = {
     },
 
     searchMeters: (parent, query) => {
-      const searchResults = Meters.find({$text:
+      const searchResults = Meter.find({$text:
         {$search: query.query}}, (error, data) => {
           if (error) {
             return error
