@@ -51,8 +51,14 @@ const resolvers = {
     },
 
     searchCustomer: (parent, query) => {
-      const searchResults = Customer.find({$text:
-        { $search: query.query}}, (error, data) => {
+      // const searchResults = Customer.find({$text:
+        // { $search: query.query}}, (error, data) => {
+      const searchResults = Customer.find({$or: [
+        {given_name: new RegExp(query.query, 'i')}, 
+        {family_name: new RegExp(query.query, 'i')},
+        {email: new RegExp(query.query, 'i')}
+        ]},
+        (error, data) => {
           if (error) {
             return error
           } else {
