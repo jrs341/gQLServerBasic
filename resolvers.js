@@ -17,7 +17,6 @@ const resolvers = {
     },
 
     allMovies: () => {
-      console.log('***** all movies ******')
       const allMovies = Movies.find({}, (error, data) => {
         if (error) {
             return error
