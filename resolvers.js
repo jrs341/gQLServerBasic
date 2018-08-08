@@ -51,8 +51,6 @@ const resolvers = {
     },
 
     searchCustomer: (parent, query) => {
-      // const searchResults = Customer.find({$text:
-        // { $search: query.query}}, (error, data) => {
       const searchResults = Customer.find({$or: [
         {given_name: new RegExp(query.query, 'i')}, 
         {family_name: new RegExp(query.query, 'i')},
@@ -64,7 +62,7 @@ const resolvers = {
           } else {
             return data
           }
-        })
+        }).limit(10)
       return searchResults
     },
 
