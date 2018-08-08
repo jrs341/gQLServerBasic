@@ -1,3 +1,4 @@
+const axios = require('axios')
 const Customer = require('./models/customerModel')
 const Meter = require('./models/meterReadingsModel')
 const Movies = require('./models/movies')
@@ -87,6 +88,17 @@ const resolvers = {
           }
         return searchResults
       })
+    },
+    // TODO reduce this to res.data and let resolver handle
+    getTivoliRiverInfo: (parent, query) => {
+      const data = axios.get('https://waterservices.usgs.gov/nwis/iv/?format=json&indent=on&sites=08188800&period=P1D&parameterCd=00065&siteStatus=all')
+      .then(res => {
+        return res.data.value.timeSeries[0].values[1].value
+      })
+      .catch(error => {
+        console.log('river error', error)
+      })
+      return data
     }
 },
    Mutation: {
@@ -210,6 +222,15 @@ const resolvers = {
     },
     amp: (parent) => {
       return parent.amp
+    }
+  },
+
+  TivoliRiverInfo: {
+    date: (parent) => {
+      return parent.dateTime
+    },
+    level: (parent) => {
+      return parent.value
     }
   }
 }
