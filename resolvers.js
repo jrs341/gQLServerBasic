@@ -91,7 +91,7 @@ const resolvers = {
     },
     // TODO reduce this to res.data and let resolver handle
     getTivoliRiverInfo: (parent, query) => {
-      const data = axios.get('https://waterservices.usgs.gov/nwis/iv/?format=json&indent=on&sites=08188800&period=P1D&parameterCd=00065&siteStatus=all')
+      const data = axios.get('https://waterservices.usgs.gov/nwis/iv/?format=json&indent=on&sites=08188800&period=P10D&parameterCd=00065&siteStatus=all')
       .then(res => {
         return res.data.value.timeSeries[0].values[1].value
       })
