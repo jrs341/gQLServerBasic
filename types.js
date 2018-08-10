@@ -13,7 +13,7 @@ const typeDefs = gql`
     searchCustomer(query: String): [Customer]
     allMeters: [Meter]
     searchMeters: Meter
-    getTivoliRiverInfo: [TivoliRiverInfo]
+    getTivoliRiverInfo: TivoliRiverInfo
   }
 
   type Mutation {
@@ -77,9 +77,17 @@ const typeDefs = gql`
     reading: Int
   }
 
-  type TivoliRiverInfo {
+  type RiverInfo {
     date: String
     level: String
+  }
+
+  type TivoliRiverInfo {
+    data: [RiverInfo]
+    sixHourDelta: String
+    twelveHourDelta: String
+    twentyFourHourDelta: String
+    fortyEightHourDelta: String
   }
 `;
 

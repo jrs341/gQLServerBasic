@@ -93,17 +93,22 @@ const resolvers = {
       const data = axios.get('https://waterservices.usgs.gov/nwis/iv/?format=json&indent=on&sites=08188800&period=P5D&parameterCd=00065&siteStatus=all')
       .then(res => {
         // this function makes sure the first data point is at the begining of the hour
-        const riverInfo = res.data.value.timeSeries[0].values[1].value
-        const firstFour = riverInfo.slice(0,4)
-        let normalizedRiverInfo = []
+        const response = res.data.value.timeSeries[0].values[1].value
+        const firstFour = response.slice(0,4)
+        let riverInfo = {}
         firstFour.map((obj, i) => {
           if (obj.dateTime.indexOf(':00') < 16) {
-            normalizedRiverInfo = [...riverInfo].splice(i)
+            riverInfo['data'] = [...response].splice(i)
           } else {
             return
           }
         })
-        return normalizedRiverInfo
+        const lastValue = Number(riverInfo.data[riverInfo.data.length - 1].value)
+        riverInfo['sixHourDelta'] = lastValue - Number(riverInfo.data[riverInfo.data.length - 25].value)
+        riverInfo['twelveHourDelta'] = lastValue - Number(riverInfo.data[riverInfo.data.length - 49].value)
+        riverInfo['twentyFourHourDelta'] = lastValue - Number(riverInfo.data[riverInfo.data.length - 97].value)
+        riverInfo['fortyEightHourDelta'] = lastValue - Number(riverInfo.data[riverInfo.data.length - 193].value) 
+        return riverInfo
       })
       .catch(error => {
         console.log('river error', error)
@@ -236,6 +241,25 @@ const resolvers = {
   },
 
   TivoliRiverInfo: {
+    data: (parent) => {
+      return parent.data
+    },
+    sixHourDelta: (parent) => {
+      return parent.sixHourDelta
+    },
+    twelveHourDelta: (parent) => {
+      return parent.twelveHourDelta
+    },
+    twentyFourHourDelta: (parent) => {
+      return parent.twentyFourHourDelta
+    },
+    fortyEightHourDelta: (parent) => {
+      return parent.fortyEightHourDelta
+    }
+
+  },
+
+  RiverInfo: {
     date: (parent) => {
       return parent.dateTime
     },
