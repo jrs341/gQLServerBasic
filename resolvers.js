@@ -89,11 +89,21 @@ const resolvers = {
         return searchResults
       })
     },
-    // TODO reduce this to res.data and let resolver handle
     getTivoliRiverInfo: (parent, query) => {
-      const data = axios.get('https://waterservices.usgs.gov/nwis/iv/?format=json&indent=on&sites=08188800&period=P10D&parameterCd=00065&siteStatus=all')
+      const data = axios.get('https://waterservices.usgs.gov/nwis/iv/?format=json&indent=on&sites=08188800&period=P5D&parameterCd=00065&siteStatus=all')
       .then(res => {
-        return res.data.value.timeSeries[0].values[1].value
+        // this function makes sure the first data point is at the begining of the hour
+        const riverInfo = res.data.value.timeSeries[0].values[1].value
+        const firstFour = riverInfo.slice(0,4)
+        let normalizedRiverInfo = []
+        firstFour.map((obj, i) => {
+          if (obj.dateTime.indexOf(':00') < 16) {
+            normalizedRiverInfo = [...riverInfo].splice(i)
+          } else {
+            return
+          }
+        })
+        return normalizedRiverInfo
       })
       .catch(error => {
         console.log('river error', error)
