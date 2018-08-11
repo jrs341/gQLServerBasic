@@ -84,6 +84,7 @@ const typeDefs = gql`
 
   type TivoliRiverInfo {
     data: [RiverInfo]
+    lastReading: String
     sixHourDelta: String
     twelveHourDelta: String
     twentyFourHourDelta: String

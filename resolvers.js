@@ -104,6 +104,7 @@ const resolvers = {
           }
         })
         const lastValue = Number(riverInfo.data[riverInfo.data.length - 1].value)
+        riverInfo['lastReading'] = riverInfo.data[riverInfo.data.length - 1]
         riverInfo['sixHourDelta'] = lastValue - Number(riverInfo.data[riverInfo.data.length - 25].value)
         riverInfo['twelveHourDelta'] = lastValue - Number(riverInfo.data[riverInfo.data.length - 49].value)
         riverInfo['twentyFourHourDelta'] = lastValue - Number(riverInfo.data[riverInfo.data.length - 97].value)
@@ -243,6 +244,9 @@ const resolvers = {
   TivoliRiverInfo: {
     data: (parent) => {
       return parent.data
+    },
+    lastReading: (parent) => {
+      return parent.lastReading
     },
     sixHourDelta: (parent) => {
       return parent.sixHourDelta
