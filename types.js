@@ -82,13 +82,17 @@ const typeDefs = gql`
     level: String
   }
 
-  type TivoliRiverInfo {
-    data: [RiverInfo]
+  type TrendInfo {
     lastReading: RiverInfo
     sixHourDelta: String
     twelveHourDelta: String
     twentyFourHourDelta: String
     fortyEightHourDelta: String
+  }
+
+  type TivoliRiverInfo {
+    data: [RiverInfo]
+    trendInfo: TrendInfo
   }
 `;
 

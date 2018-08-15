@@ -95,7 +95,10 @@ const resolvers = {
         // this function makes sure the first data point is at the begining of the hour
         const response = res.data.value.timeSeries[0].values[1].value
         const firstFour = response.slice(0,4)
-        let riverInfo = {}
+        let riverInfo = {
+          data:[],
+          trendInfo:{}
+        }
         firstFour.map((obj, i) => {
           if (obj.dateTime.indexOf(':00') < 16) {
             riverInfo['data'] = [...response].splice(i)
@@ -104,11 +107,11 @@ const resolvers = {
           }
         })
         const lastValue = Number(riverInfo.data[riverInfo.data.length - 1].value)
-        riverInfo['lastReading'] = riverInfo.data[riverInfo.data.length - 1]
-        riverInfo['sixHourDelta'] = lastValue - Number(riverInfo.data[riverInfo.data.length - 25].value)
-        riverInfo['twelveHourDelta'] = lastValue - Number(riverInfo.data[riverInfo.data.length - 49].value)
-        riverInfo['twentyFourHourDelta'] = lastValue - Number(riverInfo.data[riverInfo.data.length - 97].value)
-        riverInfo['fortyEightHourDelta'] = lastValue - Number(riverInfo.data[riverInfo.data.length - 193].value) 
+        riverInfo.trendInfo['lastReading'] = riverInfo.data[riverInfo.data.length - 1]
+        riverInfo.trendInfo['sixHourDelta'] = lastValue - Number(riverInfo.data[riverInfo.data.length - 25].value)
+        riverInfo.trendInfo['twelveHourDelta'] = lastValue - Number(riverInfo.data[riverInfo.data.length - 49].value)
+        riverInfo.trendInfo['twentyFourHourDelta'] = lastValue - Number(riverInfo.data[riverInfo.data.length - 97].value)
+        riverInfo.trendInfo['fortyEightHourDelta'] = lastValue - Number(riverInfo.data[riverInfo.data.length - 193].value) 
         return riverInfo
       })
       .catch(error => {
@@ -244,7 +247,10 @@ const resolvers = {
   TivoliRiverInfo: {
     data: (parent) => {
       return parent.data
-    },
+    }
+  },
+
+  TrendInfo: {
     lastReading: (parent) => {
       return parent.lastReading
     },
@@ -260,7 +266,6 @@ const resolvers = {
     fortyEightHourDelta: (parent) => {
       return parent.fortyEightHourDelta
     }
-
   },
 
   RiverInfo: {
