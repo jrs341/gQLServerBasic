@@ -90,6 +90,15 @@ const resolvers = {
       })
     },
     getTivoliRiverInfo: (parent, query) => {
+      const arrowColor = (delta) => {
+        if (delta < 0) {
+          return 'green'
+        } else if (delta === 0) {
+          return 'yellow'
+        } else {
+          return 'red'
+        }
+      }
       const data = axios.get('https://waterservices.usgs.gov/nwis/iv/?format=json&indent=on&sites=08188800&period=P5D&parameterCd=00065&siteStatus=all')
       .then(res => {
         // this function makes sure the first data point is at the begining of the hour
@@ -108,10 +117,10 @@ const resolvers = {
         })
         const lastValue = Number(riverInfo.data[riverInfo.data.length - 1].value)
         riverInfo.trendInfo['lastReading'] = riverInfo.data[riverInfo.data.length - 1]
-        riverInfo.trendInfo['sixHourDelta'] = lastValue - Number(riverInfo.data[riverInfo.data.length - 25].value)
-        riverInfo.trendInfo['twelveHourDelta'] = lastValue - Number(riverInfo.data[riverInfo.data.length - 49].value)
-        riverInfo.trendInfo['twentyFourHourDelta'] = lastValue - Number(riverInfo.data[riverInfo.data.length - 97].value)
-        riverInfo.trendInfo['fortyEightHourDelta'] = lastValue - Number(riverInfo.data[riverInfo.data.length - 193].value) 
+        riverInfo.trendInfo['sixHourDelta'] = arrowColor(lastValue - Number(riverInfo.data[riverInfo.data.length - 25].value))
+        riverInfo.trendInfo['twelveHourDelta'] = arrowColor(lastValue - Number(riverInfo.data[riverInfo.data.length - 49].value))
+        riverInfo.trendInfo['twentyFourHourDelta'] = arrowColor(lastValue - Number(riverInfo.data[riverInfo.data.length - 97].value))
+        riverInfo.trendInfo['fortyEightHourDelta'] = arrowColor(lastValue - Number(riverInfo.data[riverInfo.data.length - 193].value))
         return riverInfo
       })
       .catch(error => {
