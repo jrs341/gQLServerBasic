@@ -10,6 +10,7 @@ const typeDefs = gql`
     allMovies: [Movie]
     searchMovies(query: String): [Movie]
     allCustomers: [Customer]
+    currentCustomers: [Customer]
     searchCustomer(query: String): [Customer]
     allMeters: [Meter]
     searchMeters: Meter
@@ -33,6 +34,21 @@ const typeDefs = gql`
       ): Movie
 
     deleteMovie(_id: String): Movie
+
+    changeLocation(
+      _id: String,
+      location: String
+    ): Customer
+
+    addCustomerToMeter(
+      meterId: String,
+      customerId: String
+    ): Meter
+
+    addMeterToCustomer(
+      meterId: String,
+      customerId: String
+    ): Customer
   }
 
   type User {
@@ -61,6 +77,8 @@ const typeDefs = gql`
     country: String
     drivers_license_num: String
     drivers_license_state: String
+    current_customer: Boolean
+    meter: String
   }
 
   type Meter {

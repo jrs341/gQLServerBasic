@@ -10,7 +10,7 @@ const Meter = require('./models/meterReadingsModel')
 const PORT = process.env.PORT || 3010
 
 // Database configuration for mongoose
-// db: inmotion
+// db: demo
 mongoose.connect('mongodb://jrs341:HHCwc3et0@ds137687.mlab.com:37687/demo')
 // Hook mongoose connection to db
 const db = mongoose.connection

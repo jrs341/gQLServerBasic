@@ -51,6 +51,27 @@ const resolvers = {
       return customers
     },
 
+    currentCustomers: async () => {
+      const currentCustomers = await Customer.find({meter: { $ne: ''} }, (error, data) => {
+        if(error) {
+          return error
+        } else {
+          return data
+        }
+      })
+      const newData = Promise.all(currentCustomers.map((obj, i) => {
+        return Meter.find({_id:obj.meter}, (error, res) => {
+        }).then(res => {
+            currentCustomers[i].meter = res[0].meter
+            return currentCustomers})
+        .catch(error => {console.log('**** error ****', error)
+            return error})
+      }))
+        return newData.then((value) => {
+          return value[0]
+        })
+    },
+
     searchCustomer: (parent, query) => {
       const searchResults = Customer.find({$or: [
         {given_name: new RegExp(query.query, 'i')}, 
@@ -163,6 +184,43 @@ const resolvers = {
         }
       })
       return deletedMovie
+    },
+
+    addCustomerToMeter: (parent, {meterId, customerId}) => {
+      console.log('meterId', meterId)
+      console.log('customerId', customerId)
+      const addCustomerToMeter = Meter.findOneAndUpdate({_id: meterId}, {customer: customerId}, {upsert: true}, (error, data) => {
+        if(error) {
+          return error
+        } else {
+          return data
+        }
+      })
+      return addCustomerToMeter
+    },
+
+    addMeterToCustomer: (parent, {meterId, customerId}) => {
+      console.log('meterId', meterId)
+      console.log('customerId', customerId)
+      const addMeterToCustomer = Customer.findOneAndUpdate({_id: customerId}, {meter: meterId}, {upsert: true}, (error, data) => {
+        if(error) {
+          return error
+        } else {
+          return data
+        }
+      })
+      return addMeterToCustomer
+    },
+
+    changeLocation: (parent, id) => {
+      const changeLocation = Customer.update({_id: id}, (error, data) => {
+        if (error) {
+          return error
+        } else {
+          return data
+        }
+      })
+      return changeLocation
     }
 },
   
@@ -229,6 +287,12 @@ const resolvers = {
     },
     drivers_license_state: (parent) => {
       return parent.drivers_license_state
+    },
+    current_customer: (parent) => {
+      return parent.current_customer
+    },
+    meter: (parent) => {
+      return parent.meter
     }
   },
 
