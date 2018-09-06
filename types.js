@@ -11,6 +11,7 @@ const typeDefs = gql`
     searchMovies(query: String): [Movie]
     allCustomers: [Customer]
     currentCustomers: [Customer]
+    getCustomer(id: String): Customer
     searchCustomer(query: String): [Customer]
     allMeters: [Meter]
     searchMeters: Meter

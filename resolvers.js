@@ -72,6 +72,18 @@ const resolvers = {
         })
     },
 
+    getCustomer: (parent, id) => {
+      console.log('**** id ****', id)
+      const customer = Customer.findOne({_id: id.id}, (error, data) => {
+        if(error){
+          return error
+        } else {
+          return data
+        }
+      })
+      return customer
+    },
+
     searchCustomer: (parent, query) => {
       const searchResults = Customer.find({$or: [
         {given_name: new RegExp(query.query, 'i')}, 
