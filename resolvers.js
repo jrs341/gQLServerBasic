@@ -58,7 +58,7 @@ const resolvers = {
         }else{
           return data
         }
-      })
+      }).sort({meter: 1})
       return cabinAvailability
     },
 
@@ -69,7 +69,7 @@ const resolvers = {
         } else {
           return data
         }
-      })
+      }).sort({meter: 1})
       return rvAvailability
     },
 
