@@ -51,6 +51,28 @@ const resolvers = {
       return customers
     },
 
+    cabinAvailability: () => {
+      const cabinAvailability = Meter.find({meter: /^Cabin/, $and:[{ customer:''}]}, (error, data) => {
+        if(error){
+          return error
+        }else{
+          return data
+        }
+      })
+      return cabinAvailability
+    },
+
+    rvAvailability: () => {
+      const rvAvailability = Meter.find({meter: /^[A-J]$/, $and:[{ customer:''}]}, (error, data) => {
+        if(error){
+          return error
+        } else {
+          return data
+        }
+      })
+      return rvAvailability
+    },
+
     currentCustomers: async () => {
       const currentCustomers = await Customer.find({meter: { $ne: ''} }, (error, data) => {
         if(error) {

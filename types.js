@@ -9,6 +9,8 @@ const typeDefs = gql`
     user: User
     allMovies: [Movie]
     searchMovies(query: String): [Movie]
+    cabinAvailability: [Meter]
+    rvAvailability: [Meter]
     allCustomers: [Customer]
     currentCustomers: [Customer]
     getCustomer(id: String): Customer
