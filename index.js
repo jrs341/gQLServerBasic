@@ -11,7 +11,8 @@ const PORT = process.env.PORT || 3010
 
 // Database configuration for mongoose
 // db: demo
-mongoose.connect('mongodb://jrs341:HHCwc3et0@ds137687.mlab.com:37687/demo')
+mongoose.connect('mongodb://jrs341:HHCwc3et0@ds137687.mlab.com:37687/demo',
+  {useNewUrlParser:true})
 // Hook mongoose connection to db
 const db = mongoose.connection
 
